@@ -4,6 +4,8 @@
 
 《恐怖黎明》（Grim Dawn）ARZ / ARC 包文件编辑工具，带图形界面，支持解包、打包、固实、包内编辑与 MOD 合并。
 
+本项目前身：[arzedit-GUI](https://github.com/zhangqi222/arzedit-GUI)，原项目已不再维护，本项目包含原项目的全部能力。
+
 > 非官方社区工具，与 Crate Entertainment 无隶属或背书关系。
 
 ## 项目定位

@@ -4,6 +4,8 @@ English | [简体中文](README.md)
 
 A graphical tool for Grim Dawn ARZ / ARC package files: unpack, pack, solid-pack, in-package editing, and MOD merging.
 
+This project is the successor to [arzedit-GUI](https://github.com/zhangqi222/arzedit-GUI). The original project is no longer maintained, and this project includes all of its capabilities.
+
 > Unofficial community tool. Not affiliated with or endorsed by Crate Entertainment.
 
 ## What it is
