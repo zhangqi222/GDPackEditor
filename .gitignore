@@ -1,0 +1,58 @@
+# ===== 构建产物 =====
+bin/
+obj/
+.vs/
+*.user
+*.suo
+publish/
+TestResults/
+
+# ===== 本地备份与归档 =====
+# *.bak 为代码修改前的手工备份；*.rar / *.zip 为整项目打包备份
+*.bak
+*.rar
+*.zip
+
+# ===== 外部参考仓库（离线查询用）=====
+/AntdUI-main/
+/antdui-demo-master/
+/ncalc-master/
+/diffplex/
+/AntdUI-v2.4.12/
+/Scintilla.NET-7.0.0/
+/gd-utility-master/
+/markdig-1.4.0/
+/HTML-Renderer-1.6.1/
+
+# ===== 开发工具与私有资料 =====
+/.codebuddy/
+/.zcode/
+/_local/
+/tools/
+/截图反馈/
+/AGENTS.md
+/AGENTS-以前.MD
+/GDPackEditor-wiki.md
+/GDPackEditor_wiki_dev.md
+/!functest.md
+/!代办项.md
+/111.ps1
+/!bak.bat
+/plan_*.md
+/antdui迁移方案.md
+/package.json
+/package-lock.json
+**/__pycache__/
+*.pyc
+
+# ===== 示例数据与开发字典 =====
+# 示例/ 为手工测试数据，体积大且会被工具改写；模板 *.arc 是内嵌编译资源，必须保留
+/示例/
+/GDPackEditor/dict/Text_ZH/
+/GDPackEditor/dict/token_glossary.txt
+/GDPackEditor/dict/missing_tokens.txt
+/GDPackEditor/dict/key_overrides.txt
+/GDPackEditor/dict/_test_append.txt
+
+# ===== 已废弃代码 =====
+/GDPackEditor/ArzArcEditorForm.迁移ANTDUI前.cs

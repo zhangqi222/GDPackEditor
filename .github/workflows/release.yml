@@ -1,0 +1,150 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Read and validate version
+        id: version
+        shell: pwsh
+        run: |
+          [xml]$csproj = Get-Content "GDPackEditor/GDPackEditor.csproj" -Raw
+          $version = @($csproj.Project.PropertyGroup.Version | Where-Object { $_ }) | Select-Object -First 1
+          if ([string]::IsNullOrWhiteSpace($version)) { throw "csproj <Version> is missing." }
+          $version = $version.Trim()
+
+          $gui = (Select-String -Path "GDPackEditor/Program.cs" -Pattern 'GUI_VERSION\s*=\s*"v([^"]+)"').Matches[0].Groups[1].Value
+          if ($gui -ne $version) {
+            throw "Version mismatch: csproj=$version, GUI_VERSION=v$gui"
+          }
+
+          "version=$version" >> $env:GITHUB_OUTPUT
+          Write-Host "Code version: v$version"
+
+      - name: Compare with latest release
+        id: check
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $version = "${{ steps.version.outputs.version }}"
+          $latest = $null
+          $latestJson = gh release view --json tagName 2>$null
+          if ($LASTEXITCODE -eq 0 -and $latestJson) {
+            $latest = ($latestJson | ConvertFrom-Json).tagName
+          }
+
+          function To-Version([string]$text) {
+            $parts = $text.Trim().TrimStart('v', 'V').Split('.')
+            while ($parts.Count -lt 4) { $parts += '0' }
+            return [version]($parts -join '.')
+          }
+
+          $current = To-Version $version
+          if ($latest) {
+            $latestVersion = To-Version $latest
+            Write-Host "Latest release: $latest; code: v$version"
+            if ($current -eq $latestVersion) {
+              Write-Host "Version is unchanged. Nothing to release."
+              "skip=true" >> $env:GITHUB_OUTPUT
+              exit 0
+            }
+            if ($current -lt $latestVersion) {
+              throw "Code version v$version is lower than latest release $latest."
+            }
+          } else {
+            Write-Host "No existing release found. This is the first release."
+          }
+
+          $existingTag = git tag --list "v$version"
+          if ($existingTag) {
+            throw "Tag v$version already exists. Delete it or bump the version."
+          }
+
+          "skip=false" >> $env:GITHUB_OUTPUT
+
+      - name: Restore
+        if: steps.check.outputs.skip != 'true'
+        run: dotnet restore GDPackEditor.sln
+
+      - name: Build
+        if: steps.check.outputs.skip != 'true'
+        run: dotnet build GDPackEditor.sln -c Release --no-restore
+
+      - name: Test
+        if: steps.check.outputs.skip != 'true'
+        run: dotnet test GDPackEditor.Tests/GDPackEditor.Tests.csproj -c Release --no-build
+
+      - name: Publish single-file EXE
+        if: steps.check.outputs.skip != 'true'
+        shell: pwsh
+        run: |
+          $version = "${{ steps.version.outputs.version }}"
+          dotnet publish GDPackEditor/GDPackEditor.csproj `
+            -c Release `
+            -r win-x64 `
+            --self-contained false `
+            -p:PublishSingleFile=true `
+            -p:Version=$version `
+            -o publish
+          if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed." }
+
+          $hash = (Get-FileHash "publish/GDPackEditor.exe" -Algorithm SHA256).Hash.ToLower()
+          "$hash *GDPackEditor.exe" | Set-Content "publish/SHA256SUMS.txt" -Encoding ascii
+
+      - name: Extract changelog
+        if: steps.check.outputs.skip != 'true'
+        shell: pwsh
+        run: |
+          $version = "${{ steps.version.outputs.version }}"
+          $log = Get-Content "GDPackEditor/!ChangeLog.md" -Raw
+          $pattern = "(?ms)^#\s*v?$([regex]::Escape($version))\b[^\r\n]*\r?\n(.*?)(?=^#\s|\z)"
+          $match = [regex]::Match($log, $pattern)
+          if (-not $match.Success) {
+            throw "No changelog section found for v$version in GDPackEditor/!ChangeLog.md."
+          }
+          $notes = $match.Groups[1].Value.Trim()
+          if ([string]::IsNullOrWhiteSpace($notes)) {
+            $notes = "Release v$version"
+          }
+          Set-Content "release-notes.md" -Value $notes -Encoding utf8
+          Write-Host $notes
+
+      - name: Create tag and release
+        if: steps.check.outputs.skip != 'true'
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $version = "${{ steps.version.outputs.version }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "v$version"
+          git push origin "v$version"
+          gh release create "v$version" `
+            --title "v$version" `
+            --notes-file "release-notes.md" `
+            "publish/GDPackEditor.exe" `
+            "publish/SHA256SUMS.txt" `
+            "LICENSE" `
+            "THIRD-PARTY-NOTICES.md"

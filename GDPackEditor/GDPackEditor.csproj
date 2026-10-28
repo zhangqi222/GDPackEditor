@@ -1,0 +1,74 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>GDPackEditor</AssemblyName>
+    <!-- 产品名称 -->
+    <Product>GDPackEditor</Product>
+    <!-- 文件说明 -->
+    <AssemblyTitle>GDPackEditor</AssemblyTitle>
+    <Description>Grim Dawn ARZ/ARC pack tool (Windows x64)</Description>
+    <Company>laozhangggg</Company>
+    <Copyright>Copyright (c) 2026 laozhangggg（老张allif）</Copyright>
+    <Version>4.4.0</Version>
+    <FileVersion>4.4.0.0</FileVersion>
+    <AssemblyVersion>4.4.0.0</AssemblyVersion>
+    <InformationalVersion>4.4.0</InformationalVersion>
+    <UseWindowsForms>true</UseWindowsForms>
+    <!-- 解决NETSDK1152错误 - 允许重复的发布输出文件 -->
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <!-- 单文件发布：所有资源和原生DLL打包进EXE -->
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <StartupObject>GDPackEditor.Program</StartupObject>
+    <SolutionDir Condition="'$(SolutionDir)' == ''">$(MSBuildProjectDirectory)\..\</SolutionDir>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="languages\EN.json" />
+    <EmbeddedResource Include="languages\ZH.json" />
+    <!-- 内置模板包：templates 目录下 templates-*.arc 通配内嵌（文件名即标识符，新增版本只放文件） -->
+    <EmbeddedResource Include="templates\templates-*.arc" />
+    <EmbeddedResource Include="!ChangeLog.md" />
+    <EmbeddedResource Include="!aboutTool.md" />
+    <!-- 根目录 LICENSE（本工具许可 + 第三方组件声明），主界面状态栏入口展示 -->
+    <EmbeddedResource Include="..\LICENSE">
+      <Link>LICENSE</Link>
+    </EmbeddedResource>
+    <!-- 用户侧 wiki（开发侧 wiki 不内嵌、不随软件分发） -->
+    <EmbeddedResource Include="..\GDPackEditor_wiki_user.md">
+      <Link>GDPackEditor_wiki_user.md</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="languages\!FormulaHelpCN.md" />
+    <EmbeddedResource Include="languages\!FormulaHelpEN.md" />
+    <EmbeddedResource Include="languages\!MergeNoteCN.md" />
+    <EmbeddedResource Include="languages\!MergeNoteEN.md" />
+    <EmbeddedResource Include="dict\FolderMapping.txt" />
+    <EmbeddedResource Include="dict\DbrKeyMapping_*.txt" />
+    <PackageReference Include="AntdUI" Version="2.4.2" />
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
+    <PackageReference Include="DiffPlex" Version="1.9.0" />
+    <PackageReference Include="HtmlRenderer.Core" Version="1.6.1" />
+    <PackageReference Include="HtmlRenderer.WinForms" Version="1.6.1" />
+    <PackageReference Include="K4os.Compression.LZ4" Version="1.3.8" />
+    <PackageReference Include="Markdig" Version="1.4.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="NCalc" Version="7.1.0" />
+    <PackageReference Include="Scintilla5.NET" Version="6.1.2" />
+    <!-- 已移除未使用的System.Data.DataSetExtensions引用 -->
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+  </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="app.ico" />
+    <EmbeddedResource Include="wx.jpg" />
+    <EmbeddedResource Include="zfb.jpg" />
+  </ItemGroup>
+</Project>

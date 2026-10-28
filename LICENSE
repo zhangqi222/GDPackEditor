@@ -1,0 +1,127 @@
+MIT License
+
+Copyright (c) 2026 laozhangggg（老张allif）
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Additional notices / 附加声明
+
+The MIT license above applies only to the original code and original assets
+created by the project owner. The following material is **not** covered by the
+MIT grant and remains subject to the rights and licenses described below.
+
+上述 MIT 许可仅适用于项目作者的原创代码与原创资源。以下内容**不属于** MIT
+授权范围，其权利与许可仍按下列说明执行。
+
+### 1. Upstream project / 上游项目
+
+The ARZ/ARC parsing portions are derived from **arzedit** by **WillSo**
+(originally published on the Crate Entertainment forum and GitLab as
+QuasiMod/arzedit). The upstream project does **not** include a license file.
+The author of GDPackEditor has requested permission from the original author
+but has not received a reply. Those portions are therefore **not** relicensed
+under MIT; all rights remain with their original author. If the rightsholder
+objects, the relevant content will be removed, replaced, or rewritten promptly.
+
+ARZ/ARC 解析部分衍生自 **WillSo** 的 **arzedit**（原发布于 Crate Entertainment
+官方论坛及 GitLab 的 QuasiMod/arzedit）。上游项目**未附带许可文件**。本工具作者
+已向原作者申请授权，但未获回复。因此该部分**不纳入 MIT 授权**，权利仍归原作者。
+如权利人提出异议，将立即删除、替换或重写相关内容。
+
+The project also acknowledges **gd-utility** by **Ridwan Hidayatullah**
+(MIT License): https://github.com/R-Hidayatullah/gd-utility
+
+### 2. Third-party components / 第三方组件
+
+GDPackEditor references the following NuGet packages without modifying their
+source code. Their copyrights and licenses remain with their respective
+authors. The complete notices and license texts are provided in
+[THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+本工具通过 NuGet 引用下列组件，未修改其源码；版权与许可归各作者所有。
+完整声明与许可全文见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
+
+- AntdUI 2.4.2 — Apache-2.0
+- CommandLineParser 2.9.1 — MIT
+- DiffPlex 1.9.0 — Apache-2.0
+- ExtendedNumerics.BigDecimal 3003.2.0.161 — MIT
+- HtmlRenderer.Core 1.6.1 — BSD-3-Clause
+- HtmlRenderer.WinForms 1.6.1 — BSD-3-Clause
+- K4os.Compression.LZ4 1.3.8 — MIT
+- Markdig 1.4.0 — BSD-2-Clause
+- Microsoft.CSharp 4.7.0 — MIT
+- Microsoft.Extensions.DependencyInjection.Abstractions 10.0.10 — MIT
+- Microsoft.Extensions.Logging.Abstractions 10.0.10 — MIT
+- Microsoft.NET.ILLink.Tasks 8.0.29 — MIT
+- NCalc 7.1.0 — MIT
+- NCalc.Core 7.1.0 — MIT
+- NCalc.Domain 7.1.0 — MIT
+- NCalc.Parser 7.1.0 — MIT
+- Parlot 1.5.8 — BSD-3-Clause
+- Scintilla5.NET 6.1.2 — MIT
+- System.Collections.Immutable 10.0.10 — MIT
+- System.Diagnostics.DiagnosticSource 10.0.10 — MIT
+- System.Formats.Nrbf 10.0.10 — MIT
+- System.Reflection.Metadata 10.0.10 — MIT
+- System.Resources.Extensions 10.0.10 — MIT
+- System.Text.Encoding.CodePages 8.0.0 — MIT
+
+### 3. Game templates / 游戏模板
+
+The built-in templates come from **Grim Dawn** and are used as-is. Copyright
+belongs to **Crate Entertainment**. They are included solely for technical
+exchange and MOD-making. Special thanks to **TT300** for organizing the
+templates; this credit does not change the copyright ownership.
+
+内置模板来源于《恐怖黎明》（Grim Dawn），原样使用，版权归 **Crate
+Entertainment（板条箱）** 所有。相关内容仅用于技术交流与 MOD 制作。特别感谢
+**TT300** 整理模板，该致谢不改变版权归属。
+
+### 4. Dictionary / 字典
+
+`dict/DbrKeyMapping_cn.txt` is machine-translated and provided for reference
+only. Its accuracy is not guaranteed.
+
+`dict/DbrKeyMapping_cn.txt` 为机器翻译，仅供参考，不保证准确性。
+
+### 5. Unsigned builds / 无签名发布
+
+Official builds are published **without code signing**. Windows SmartScreen or
+antivirus software may warn or report a false positive. Verify the SHA-256
+checksum published with each release before running.
+
+官方版本**未做代码签名**。Windows SmartScreen 或杀毒软件可能提示风险或误报。
+运行前请核对发布页提供的 SHA-256 校验值。
+
+### 6. Risk / 风险提示
+
+Use this tool at your own risk. The author is not liable for damage to saves,
+game files, or data caused by using this tool. Back up your data first.
+
+使用本工具风险自负。因使用本工具造成的存档、游戏文件或数据损失，作者不承担
+责任。请先备份数据。
+
+### 7. No affiliation / 无关联声明
+
+GDPackEditor is an unofficial community tool. It is not affiliated with or
+endorsed by Crate Entertainment.
+
+GDPackEditor 是非官方社区工具，与 Crate Entertainment 无隶属或背书关系。

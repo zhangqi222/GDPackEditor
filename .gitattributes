@@ -1,0 +1,26 @@
+# Normalize text files on commit; keep Windows source files CRLF-friendly.
+* text=auto
+
+*.cs text eol=crlf
+*.csproj text eol=crlf
+*.sln text eol=crlf
+*.resx text eol=crlf
+*.pubxml text eol=crlf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.txt text eol=lf
+
+# Binary assets must never be normalized or diffed as text.
+*.arc binary
+*.arz binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.exe binary
+*.dll binary
+*.pdb binary
+*.zip binary
+*.rar binary
