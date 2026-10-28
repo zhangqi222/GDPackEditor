@@ -111,3 +111,5 @@ Back up your saves and package files before editing. The tool tries to preserve 
 ## Disclaimer
 
 This is a non-profit personal project provided "as is", without any express or implied warranty. The author is not liable for save corruption, game malfunction, data loss, or other damage caused by using this tool. Back up your data first.
+
+If any content in this project infringes your rights, please let me know and I will handle it in accordance with the rights holder's wishes.
